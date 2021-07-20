@@ -4,7 +4,9 @@
 int main() {
     Permutation p(5);
 
-    Permutation pp{{1,2,3}};
+    Permutation pp{{1,2,0,3}};
+
+    std::cout << pp;
 
     return 0;
 }

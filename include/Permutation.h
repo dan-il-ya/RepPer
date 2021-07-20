@@ -8,6 +8,7 @@
 #include "vector"
 #include "set"
 #include "iostream"
+#include "algorithm"
 
 class Permutation {
     // TODO:
@@ -26,6 +27,8 @@ public:
     explicit Permutation(std::vector<int> per_);
 
     int act(int n) const;
+
+    friend std::ostream &operator<<(std::ostream &os, const Permutation &permutation);
 };
 
 
