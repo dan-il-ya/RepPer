@@ -12,24 +12,44 @@
 
 class Permutation {
     // TODO:
-    //  -- operator*
-    //  -- operator*=
     //  -- cyclic_type()
     //  --
+    //  --
+    //  --
     // DONE:
-    //  --
-    //  --
+    //  -- operator*
+    //  -- operator*=
     //
-    std::vector<int> per = {0};
+    std::vector<int> per = {};
 public:
     Permutation();
     explicit Permutation(int n);
     explicit Permutation(std::vector<int> per_);
 
+    int num() const;
+
+    int proper_num() const;
+
     int act(int n) const;
+
+    bool operator==(const Permutation& permutation) const;
+
+    bool operator!=(const Permutation& permutation) const;
+
+    Permutation operator*(const Permutation& permutation) const;
+
+    Permutation& operator*=(const Permutation& permutation);
 
     friend std::ostream &operator<<(std::ostream &os, const Permutation &permutation);
 };
+
+
+static Permutation ID{0};
+static Permutation C2{2};
+static Permutation C3{3};
+static Permutation C4{4};
+static Permutation C5{5};
+
 
 
 #endif //REPPER_PERMUTATION_H
