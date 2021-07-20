@@ -114,6 +114,23 @@ TEST(PermutationTest, MultiplicationAssignmentTest){
     Permutation p = C2;
     EXPECT_TRUE((p *= C2) == ID);
     EXPECT_TRUE(p == ID);
+}
 
+TEST(PermutationTest, InvTest){
+    EXPECT_TRUE(C2.inv() == C2);
+    EXPECT_TRUE(C3.inv() == C3 * C3);
+    EXPECT_TRUE(Permutation({0,1,3,4,2}) == Permutation({0,1,4,2,3}).inv());
+}
 
+TEST(PermutationTest, PowTest){
+    for(int i = 0; i < 10; i++)
+        EXPECT_TRUE((Permutation(i) ^ i) == ID);
+    EXPECT_TRUE( (C4 ^ 2) == (C4 ^ -2));
+
+    for(int i = 0; i < 10; i++)
+        EXPECT_TRUE((Permutation(i) ^= i) == ID);
+
+    Permutation p({1,3,2,0,7,4,5,6});
+    EXPECT_TRUE((p^3) == (p * p * p));
+    EXPECT_TRUE((p^-3) == (p * p * p).inv());
 }

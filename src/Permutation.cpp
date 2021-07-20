@@ -31,8 +31,8 @@ int Permutation::act(int n) const {
 }
 
 Permutation::Permutation(std::vector<int> per_) {
-    if( (std::set<int>(per_.begin(), per_.end()).size() == per_.size()) &&
-        (*std::min_element(per_.begin(), per_.end()) == 0) &&
+    if( (std::set<int>(per_.begin(), per_.end()).size() == per_.size()) and
+        (*std::min_element(per_.begin(), per_.end()) == 0) and
         (*std::max_element(per_.begin(), per_.end()) == (int)per_.size() - 1)){
         per = per_;
     }else{
@@ -43,7 +43,7 @@ Permutation::Permutation(std::vector<int> per_) {
 
 std::ostream &operator<<(std::ostream &os, const Permutation &permutation) {
     os << '[';
-    for(auto a = permutation.per.begin();a < (permutation.per.end() - 1);a++)
+    for(auto a = permutation.per.begin(); a < (permutation.per.end() - 1); a++)
         os << *a << ',';
     os << *(permutation.per.end() - 1);
     os << ']';
@@ -86,4 +86,24 @@ bool Permutation::operator==(const Permutation &permutation) const {
 
 bool Permutation::operator!=(const Permutation &permutation) const {
     return !((*this) == permutation);
+}
+
+Permutation Permutation::inv() const {
+    std::vector<int> v(proper_num());
+    for(int i = 0; i < proper_num(); i++)
+        v[act(i)] = i;
+    return Permutation{v};
+}
+
+Permutation Permutation::operator^(int pow) const {
+    if(pow < 0)
+        return ((*this) ^ (- pow)).inv();
+    Permutation p = ID;
+    for(int i = 0 ; i < pow ; i++)
+        p *= *this;
+    return p;
+}
+
+Permutation& Permutation::operator^=(int pow){
+    return (*this = *this ^ pow);
 }

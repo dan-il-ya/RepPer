@@ -30,6 +30,8 @@ public:
 
     int proper_num() const;
 
+    Permutation inv() const;
+
     int act(int n) const;
 
     bool operator==(const Permutation& permutation) const;
@@ -39,6 +41,10 @@ public:
     Permutation operator*(const Permutation& permutation) const;
 
     Permutation& operator*=(const Permutation& permutation);
+
+    Permutation operator^(int pow) const;
+
+    Permutation& operator^=(int pow);
 
     friend std::ostream &operator<<(std::ostream &os, const Permutation &permutation);
 };
