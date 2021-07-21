@@ -11,8 +11,11 @@ Permutation::Permutation() {
 
 Permutation::Permutation(int n) {
     if(n < 0) {
-        std::cerr << "Error: cannot construct cycle with negative ord.";
-        throw std::exception();
+        n = -n;
+        per.clear();
+        per.push_back(n - 1);
+        for(int i = 0;i < n - 1;i++)
+            per.push_back(i);
     }else if(n > 0){
         per.clear();
         for(int i = 1;i < n;i++)
@@ -106,4 +109,16 @@ Permutation Permutation::operator^(int pow) const {
 
 Permutation& Permutation::operator^=(int pow){
     return (*this = *this ^ pow);
+}
+
+Permutation Permutation::shift(int k) const {
+    return (*this) ^ (Permutation(proper_num() + k) ^ k);
+}
+
+Permutation Permutation::operator^(const Permutation& permutation) const {
+    return permutation * *this * permutation.inv();
+}
+
+Permutation &Permutation::operator^=(const Permutation &permutation) {
+    return (*this = (*this ^ permutation));
 }

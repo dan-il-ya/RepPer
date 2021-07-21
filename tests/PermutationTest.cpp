@@ -14,14 +14,34 @@ TEST(PermutationTest, DefaultConstructorTest){
 }
 
 TEST(PermutationTest, CyclicConstructorTest){
+    EXPECT_NO_THROW(Permutation(0));
+    EXPECT_NO_THROW(Permutation(2));
+    EXPECT_NO_THROW(Permutation(100));
+
     EXPECT_EQ(0, Permutation(2).act(1));
     EXPECT_EQ(1, Permutation(2).act(0));
 
+    EXPECT_EQ(1, Permutation(10).act(0));
+    EXPECT_EQ(4, Permutation(10).act(3));
+    EXPECT_EQ(8, Permutation(10).act(7));
+    EXPECT_EQ(0, Permutation(10).act(9));
 
-    EXPECT_NO_THROW(Permutation(2));
-    EXPECT_NO_THROW(Permutation(100));
-    EXPECT_NO_THROW(Permutation(0));
-    EXPECT_THROW(Permutation(-1),std::exception);
+
+    EXPECT_NO_THROW(Permutation(-1));
+    EXPECT_NO_THROW(Permutation(-2));
+    EXPECT_NO_THROW(Permutation(-10));
+    EXPECT_NO_THROW(Permutation(-100));
+
+    EXPECT_EQ(0,Permutation(-1).act(0));
+    EXPECT_EQ(1,Permutation(-1).act(1));
+
+    EXPECT_EQ(1,Permutation(-2).act(0));
+    EXPECT_EQ(0,Permutation(-2).act(1));
+
+    EXPECT_EQ(9, Permutation(-10).act(0));
+    EXPECT_EQ(2, Permutation(-10).act(3));
+    EXPECT_EQ(6, Permutation(-10).act(7));
+    EXPECT_EQ(8, Permutation(-10).act(9));
 }
 
 TEST(PermutationTest, GeneralConstructorTest){
@@ -133,4 +153,16 @@ TEST(PermutationTest, PowTest){
     Permutation p({1,3,2,0,7,4,5,6});
     EXPECT_TRUE((p^3) == (p * p * p));
     EXPECT_TRUE((p^-3) == (p * p * p).inv());
+}
+
+TEST(PermutationTest,ConjugationTest){
+    for(int i = 0; i < 10 ; i++)
+        for(int j = 0 ; j < 10; j++){
+            Permutation A(i), B(j), C(-i);
+            EXPECT_TRUE((A * B * C) == (B ^ A));
+        }
+
+    Permutation A{{2,4,1,3,0}}, B = A, C = (Permutation(4) * Permutation(2));
+    A ^= C;
+    EXPECT_TRUE((A)==(B ^ C));
 }

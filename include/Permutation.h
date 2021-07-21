@@ -13,12 +13,12 @@
 class Permutation {
     // TODO:
     //  -- cyclic_type()
-    //  --
-    //  --
+    //  -- sign()
     //  --
     // DONE:
     //  -- operator*
     //  -- operator*=
+    //  -- shift(int s)
     //
     std::vector<int> per = {};
 public:
@@ -32,6 +32,8 @@ public:
 
     Permutation inv() const;
 
+    Permutation shift(int k) const;
+
     int act(int n) const;
 
     bool operator==(const Permutation& permutation) const;
@@ -44,7 +46,11 @@ public:
 
     Permutation operator^(int pow) const;
 
+    Permutation operator^(const Permutation& permutation) const;
+
     Permutation& operator^=(int pow);
+
+    Permutation& operator^=(const Permutation& permutation);
 
     friend std::ostream &operator<<(std::ostream &os, const Permutation &permutation);
 };
