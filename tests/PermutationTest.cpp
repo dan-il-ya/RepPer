@@ -165,4 +165,14 @@ TEST(PermutationTest,ConjugationTest){
     Permutation A{{2,4,1,3,0}}, B = A, C = (Permutation(4) * Permutation(2));
     A ^= C;
     EXPECT_TRUE((A)==(B ^ C));
+
+    EXPECT_TRUE(Permutation({1,0,3,2}) == C2 * C2.shift(2));
+    EXPECT_TRUE(Permutation({1,0,3,2,5,4}) == C2 * C2.shift(2) * C2.shift(4));
+    EXPECT_TRUE(Permutation({1,0,2,3,5,4}) == C2 * C2.shift(4));
+}
+
+TEST(PermutationTest, SignTest){
+    EXPECT_TRUE(Permutation().sign() == 1);
+    for(int i = 1; i < 10; i++)
+        EXPECT_TRUE(Permutation(i).sign()==((i % 2) == 0? -1 : 1));
 }

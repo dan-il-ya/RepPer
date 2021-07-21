@@ -13,12 +13,13 @@
 class Permutation {
     // TODO:
     //  -- cyclic_type()
-    //  -- sign()
+    //  --
     //  --
     // DONE:
     //  -- operator*
     //  -- operator*=
     //  -- shift(int s)
+    //  -- sign()
     //
     std::vector<int> per = {};
 public:
@@ -29,6 +30,8 @@ public:
     int num() const;
 
     int proper_num() const;
+
+    int sign() const;
 
     Permutation inv() const;
 

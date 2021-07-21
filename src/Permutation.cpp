@@ -10,18 +10,16 @@ Permutation::Permutation() {
 }
 
 Permutation::Permutation(int n) {
+    per.clear();
     if(n < 0) {
         n = -n;
-        per.clear();
         per.push_back(n - 1);
         for(int i = 0;i < n - 1;i++)
             per.push_back(i);
     }else if(n > 0){
-        per.clear();
         for(int i = 1;i < n;i++)
             per.push_back(i);
         per.push_back(0);
-
     }
 }
 
@@ -121,4 +119,13 @@ Permutation Permutation::operator^(const Permutation& permutation) const {
 
 Permutation &Permutation::operator^=(const Permutation &permutation) {
     return (*this = (*this ^ permutation));
+}
+
+int Permutation::sign() const {
+    int n = 0;
+    for(int i = 0;i < proper_num(); i++)
+        for(int j = 0; j < i; j++)
+            if(act(i) < act(j))
+                n++;
+    return ((n % 2) == 0? 1 : -1);
 }
