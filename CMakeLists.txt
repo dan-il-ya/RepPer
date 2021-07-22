@@ -4,9 +4,9 @@ project(RepPer)
 set(CMAKE_CXX_STANDARD 14)
 
 
-set(INCLUDES include/Permutation.h)
+set(INCLUDES include/Permutation.h include/YoungTableau.h)
 
-set(SOURCES src/Permutation.cpp)
+set(SOURCES src/Permutation.cpp src/YoungTableau.cpp)
 
 add_executable(
         RepPer
@@ -20,7 +20,7 @@ target_compile_options(RepPer PRIVATE -Wall)
 
 add_subdirectory(googletest)
 
-set(TESTS tests/PermutationTest.cpp)
+set(TESTS tests/PermutationTest.cpp tests/YoungTableauTest.cpp)
 
 add_executable(
         Tests
